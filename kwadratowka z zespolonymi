@@ -1,0 +1,41 @@
+#include <stdio.h>
+#include <math.h>
+#include <complex.h>
+
+void funkcja_kwadratowa(double a, double b, double c, double x1, double x2, double complex r1, double complex r2)
+{
+    double delta=b*b - 4*a*c;
+    if (delta==0)
+        {
+        x1 = -b / 2 * a;
+        printf("Rozwiazaniem rownania kwadratowego jest: %lg",x1);
+        }
+    else if(delta>0)
+    {
+        delta = sqrt(delta);
+        x1=(-b-delta)/2*a;
+        x2=(-b+delta)/2*a;
+        printf("Rozwiazaniami rownania kwadratowego sa: %lg %lg",x1, x2);
+    }
+    else{
+        double complex pierwiastek_delta = csqrt(delta);
+        r1=(-b-pierwiastek_delta)/2*a;
+        r2=(-b+pierwiastek_delta)/2*a;
+        printf("Rozwiazaniami rownania kwadratowego sa: %.1f%+.1fi  %.1f%+.1fi\n", creal(r1), cimag(r1), creal(r2), cimag(r2));
+    }
+}
+
+int main() {
+    double a,b,c,delta_pierwiastek, x1, x2;
+    double complex r1, r2;
+    printf("Podaj wspolczynnik przy x^2, wspolczynnik nie moze byc rowny 0:\n ");
+    scanf("%lg",&a);
+    printf("Podaj wspolczynnik przy x: \n ");
+    scanf("%lg",&b);
+    printf("Podaj warrosc wyrazu wolnego: \n");
+    scanf("%lg",&c);
+    funkcja_kwadratowa(a,b,c,x1,x2,r1,r2);
+    return 0;
+}
+
+
