@@ -1,0 +1,44 @@
+#include <stdio.h>
+#include <math.h>
+
+double potega(double x, int n){
+    if (n!=0){
+        double x1=x;
+        int i=1;
+        while(i<n){
+            x*=x1;
+            i++;
+        }
+        return x;
+    }
+    else
+        return 1;
+}
+
+int main()
+{
+    double suma = 0.0, liczba=0.0, srednia =0.0, odchylenie=0.0;
+    int n=0;    //dzieki tej zmiennej wiemy ile liczb wprowadzono
+
+    scanf("%lg",&liczba);   //wprowadzamy pierwsza liczbe
+
+    //petla while bedzie sie wykonywac dopoki nie zakonczymy dzialania progarmu
+    while(getchar()!=EOF)
+        {
+            suma += liczba;
+            n++;
+            odchylenie+=potega(liczba,2); //w petli obliczamy jedynie sume kwadratow wprowadzonych liczb
+            scanf("%lg", &liczba); //wprowadzamy kolejna liczbe
+        }
+
+    /* zauwazamy, ze we wzorze na odchylenie standardowe licznik mozemy przeksztalcic na:
+     * oznaczmy przez x srednia arytmetyczna naszych liczb
+     * n-> ilosc naszych liczb
+     * liznik odchylenia = suma kwadratow liczb -2*x*suma +n*x^2 */
+
+    srednia = suma/n;
+    odchylenie= sqrt((odchylenie -2*srednia*suma + n* potega(srednia,2))/n);
+    printf("srednia wynosi: %g odchylenie standardowe wynosi: %g", srednia, odchylenie);
+
+        return 0;
+}
