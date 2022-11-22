@@ -1,0 +1,96 @@
+#include <stdio.h>
+
+double fL(double x,double y,const int *n){
+    double wynik = x + y;
+    if(*n==0)
+        wynik = 1;
+    else {
+        int i = 1;
+        while (i < *n) {
+            wynik *= (x + y);
+            i++;
+        }
+    }
+    return wynik;
+}
+
+//funkcja obliczajaca symbol newtona
+int sn(int n, int k){
+
+    //petla liczaca silnie z n
+    int SilniaN=1;
+    for(int i=n;i>1;i--){
+        SilniaN*=i;
+    }
+
+    //petla liczaca silnie z k
+    int SilniaK=1;
+    for(int i=k;i>1;i--){
+        SilniaK*=i;
+    }
+
+    //petla liczaca silnie z n-k
+    int SilniaNK=1;
+    for(int i=n-k;i>1;i--){
+        SilniaNK*=i;
+    }
+
+    //symbol newtona
+    return SilniaN/(SilniaK*SilniaNK);
+}
+//funkcja zwracajaca wartosc x^n
+double potega(double x, int n){
+    if (n!=0){
+        double x1=x;
+        int i=1;
+        while(i<n){
+            x*=x1;
+            i++;
+        }
+        return x;
+    }
+    else
+        return 1;
+}
+
+double rL(double x,double y,const int *n){
+
+    //utworzenie tablicy ze wspolczynnikami k
+    int tab[*n+1];
+    for (int i = 0; i <= *n; i++)
+        tab[i] = i;
+
+    //tablica ze wspolczynnikami przy zmiennych
+    int tab1[*n+1];
+    for (int i = 0; i <= *n; i++)
+        tab1[i] = sn(*n, tab[i]);
+
+    double tab2[*n+1];
+    for (int i = 0; i <= *n; i++) //petla tworzy tablice z obliczonymi odpowiednimi wyrazami ze wzoru
+        tab2[i] = potega(x, *n - i) * tab1[i] * potega(y, i);
+
+    double wynik=0;
+    for (int i = 0; i <= *n; i++) //petla sumujaca kazdy wyraz dajac wynik koncowy
+        wynik += tab2[i];
+
+
+    return wynik;
+}
+
+int main() {
+
+    printf("podaj liczby:\n");
+    double x,y;
+    int n;
+    scanf("%lg %lg %d", &x,&y,&n);  //pobranie danych od uzytkownika
+
+    double left_side = fL(x,y,&n);
+    printf("wynik fL: %g \n" ,left_side);
+
+    double right_side = rL(x,y,&n);
+    printf("wynik rL: %g \n",right_side);
+
+    double blad = (left_side-right_side)/ left_side*100;
+    printf("blad procentowy wynosi: %g",blad);
+    return 0;
+}
