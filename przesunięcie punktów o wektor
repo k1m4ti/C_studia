@@ -1,0 +1,53 @@
+#include <stdio.h>
+
+struct wspolrzedne{
+    double x, y;
+};
+
+int main() {
+
+    struct wspolrzedne get_point(double x, double y);
+    void move(struct wspolrzedne *, struct wspolrzedne);
+
+    printf("Podaj wspolrzedne dwoch punktow\n");
+    double x1, x2, y1, y2;
+    scanf("%lg %lg", &x1, &y1);
+    scanf("%lg %lg", &x2, &y2);
+
+    struct wspolrzedne punkt1, punkt2;
+    punkt1 = get_point(x1, y1);
+    punkt2 = get_point(x2, y2);
+
+    printf("\npodaj wspolrzedne wektora przesuniecia: \n");
+    double p, q;
+    scanf("%lg %lg", &p, &q);
+
+    struct wspolrzedne wektor = get_point(p,q);
+
+    void move(struct wspolrzedne *, struct wspolrzedne);
+    move(&punkt1, wektor);
+    move(&punkt2, wektor);
+
+    printf("\nnowe wspolrzedne punktow po przesunieciu:\n");
+    printf("%g %g\n", punkt1.x, punkt1.y);
+    printf("%g %g\n", punkt2.x, punkt2.y);
+
+
+    return 0;
+}
+
+struct wspolrzedne get_point(double x, double y)
+{
+    struct wspolrzedne point;
+    point.x = x;
+    point.y = y;
+    return point;
+}
+
+void move(struct wspolrzedne *point, struct wspolrzedne vector){
+    point->x += vector.x;
+    point->y += vector.y;
+}
+
+
+
