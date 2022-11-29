@@ -1,0 +1,58 @@
+#include <stdio.h>
+
+
+int main()
+{
+    double wyznacznik, wyznacznik_x, wyznacznik_y, wyznacznik_z, x, y, z;
+    double w[3][4];
+
+    printf("podaj wspolczynniki i wyraz wolny kolejno: a1x+b1y+c1z=d\n");
+    scanf("%lg %lg %lg %lg", &w[0][0], &w[0][1], &w[0][2], &w[0][3]);
+    printf("podaj wspolczynniki i wyraz wolny kolejno: a2x+b2y+c2z=d\n");
+    scanf("%lg %lg %lg %lg", &w[1][0], &w[1][1], &w[1][2], &w[1][3]);
+    printf("podaj wspolczynniki i wyraz wolny kolejno: a2x+b2y+c2z=d\n");
+    scanf("%lg %lg %lg %lg", &w[2][0], &w[2][1], &w[2][2], &w[2][3]);
+
+        wyznacznik = w[0][0] * w[1][1] * w[2][2] +
+                     w[1][0] * w[2][1] * w[0][2] +
+                     w[2][0] * w[0][1] * w[1][2] -
+                     w[0][2] * w[1][1] * w[2][0] -
+                     w[1][2] * w[2][1] * w[0][0] -
+                     w[2][2] * w[0][1] * w[1][0];
+
+        wyznacznik_x = w[0][3] * w[1][1] * w[2][2] +
+                       w[1][3] * w[2][1] * w[0][2] +
+                       w[2][3] * w[0][1] * w[1][2] -
+                       w[0][2] * w[1][1] * w[2][3] -
+                       w[1][2] * w[2][1] * w[0][3] -
+                       w[2][2] * w[0][1] * w[1][3];
+
+        wyznacznik_y = w[0][0] * w[1][3] * w[2][2] +
+                       w[1][0] * w[2][3] * w[0][2] +
+                       w[2][0] * w[0][3] * w[1][2] -
+                       w[0][2] * w[1][3] * w[2][0] -
+                       w[1][2] * w[2][3] * w[0][0] -
+                       w[2][2] * w[0][3] * w[1][0];
+
+        wyznacznik_z = w[0][0] * w[1][1] * w[2][3] +
+                       w[1][0] * w[2][1] * w[0][3] +
+                       w[2][0] * w[0][1] * w[1][3] -
+                       w[0][3] * w[1][1] * w[2][0] -
+                       w[1][3] * w[2][1] * w[0][0] -
+                       w[2][3] * w[0][1] * w[1][0];
+
+       if(wyznacznik && wyznacznik_x && wyznacznik_y && wyznacznik_z) {
+           x = wyznacznik_x / wyznacznik;
+           y = wyznacznik_y / wyznacznik;
+           z = wyznacznik_z / wyznacznik;
+           printf("x=%g y=%g z=%g", x, y, z);
+       }
+       else if(wyznacznik ==0.0 && wyznacznik_x == 0.0 && wyznacznik_y == 0 && wyznacznik_z == 0)
+           printf("uklad rownan nieoznaczony");
+       else
+           printf("uklad rownan sprzczny, brak rozwiazan");
+
+    return 0;
+}
+
+
